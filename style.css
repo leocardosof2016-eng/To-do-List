@@ -18,9 +18,27 @@ body {
     margin: auto;
 }
 
+.container-nota {
+    width: 200px;
+    min-height: 150px;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 15px;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .nota-title {
+        display: inline;
+    }
+}
+
 /* Estilização do Conteúdo Principal */
 main {
     display: flex;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -28,12 +46,18 @@ main {
     width: 90%;
     margin: 20px;
     min-height: 50px;
+    border-radius: 10px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
 }
 
 .list-title {
-    margin-top: 5px;
-    margin-left: 5px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
     font-size: 30px;
-    display: block;
-    text-align: left;
+    grid-column: 1 / -1;
+    justify-self: start;
 }
