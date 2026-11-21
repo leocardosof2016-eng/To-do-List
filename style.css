@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-* {
+*{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
@@ -10,79 +10,76 @@ body {
     min-height: 100vh;
     width: 100%;
     margin: 0; /*remover margem padrão*/
-    padding-top: 100px;
+    padding-top: 12px;
+    overflow-x: hidden;
 }
-header{
-    position: fixed;
-    top:16px;
-    left:0;
+
+header {
     width: 100%;
-    height: 90px;
-    background-color: #ffff;
+    padding: 28px 16px 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
-    overflow: hidden; /*cortar o espaço transparente sobrando do svg*/
+    height: 120px;
+    overflow: hidden;
 }
-.container-nota {
-    width: 200px;
-    min-height: 150px;
-    background-color: white;
-    border-radius: 5px;
-    margin-bottom: 15px;
 
-
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-
-    .nota-title {
-        display: inline;
-    }
-}
 
 /* Estilização do Conteúdo Principal */
 main {
+    width: 100%;
+    max-width: 1120px;
+    margin: 20px auto 0;
+    padding: 0 24px;
     display: grid;
-    grid-template-columns: 1.25fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: 
-    "todo doing"
-    "todo done";
-    gap: 24px 32px;
-    max-width: 1160px;
-    margin:0 auto;
-    padding: 12px 24px;
-    align-items: stretch;
-    margin-top: 40px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    align-items: start;}
+
+
+
+.container-nota {
+    width: 100%;
+    position:relative; /*tirar*/
+    padding: 20px 22px 44px; /*18px*/
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr;
+    gap: 10px;
+    min-height: 200px; 
+    flex-direction: column;/*tirar*/
+    background-color: white;
+    border-radius: 28px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.24);
+    flex-shrink: 0;       /* evita que as notas encolham quando a lista enche */
+         /* o gap de .notas-lista já cuida do espaçamento */
 
 }
 
 .list-container {
    border-radius: 38px;
    padding: 24px 28px;
+   min-height: 560px;
+   max-height: 75vh;
+   display: flex;
+   flex-direction: column;
+   gap:20px;
+   overflow: hidden;
 }
 
 .list-title {
-    margin: 0 0 18px 0;
-    font-size: 1.8rem;
-    font-weight: 700;
+margin: 0 0 18px 0;
+font-size: 2.0rem;
+font-weight: 700;
+color:black;
 
 }
-#to-do-container{
-    grid-area: todo;
-    margin: 36px 0;
-    margin-bottom: 24px;}
-
-#doing-container{
-    grid-area: doing;
-    min-height: 190px;}
-
-#done-container{
-    grid-area: done;
-    min-height: 190px;
+#to-do-container,
+#doing-container,
+#done-container {
+    width: 100%;
 }
+
 .logo{
    width: 300px;
    max-width: 80%;
@@ -98,8 +95,86 @@ main {
     height: auto;
     pointer-events: none;
 }
-#container-nota{  /*notas lado a lado*/
-    display: felx;
+
+
+.add-circle-icon {
+    width: 24px;
+    height: 24px;
+    border: 1.8px solid #6f6cf6;
+    border-radius: 50%;
+    color: #6f6cf6;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    line-height: 0;
+}
+
+.add-circle-icon::before { /*centralizar + */
+    display: block;
+    line-height: 1;
+    transform: translateY(2.0px);}
+
+.nota-title {
+        grid-column: 1; 
+        grid-row: 1;
+        margin: 0;
+        text-align: left;
+        font-size: 1.35rem; 
+        font-weight: 700;
+        align-self: center;
+    }
+
+.texto-nota-resumo {
+        grid-column: 1 / -1; /* Faz a textarea esticar da primeira até a última coluna */
+        grid-row: 2; /* Fica na linha de baixo */
+        width: 100%;
+        height: 100%;
+        min-height: 120px;
+        border: none; 
+        outline: none; 
+        background: transparent;
+        resize: none;
+        font-size: 0.95rem;
+        
+    }
+
+.add-container {
+    width: 100%;
+    height: 62px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 26px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    font-size: 1.20rem;
+    font-weight: 500;
+    color: #111111;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    flex-shrink: 0; /*mantem o botão fixo*/
+}
+
+/*area que rola verticalmente quando há varias notas: */
+.notas-lista {
+    flex: 1;
+    min-height: 0;    /* Usar em flex containers para o overflow-y funcionar */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
     gap: 16px;
-    flex-wrap: wrap;
+    padding-right: 4px;
+    scrollbar-width: none ; /* ou thin */}
+
+.notas-lista::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.notas-lista::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.65);
+    border-radius: 999px;
 }

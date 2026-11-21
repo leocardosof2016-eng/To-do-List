@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista To Do</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="resp.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    
-    <!--Adicionar icon de menu-->
+   
     <header>
         <img src="OAT.svg" alt="Logo" class="logo">
     
@@ -16,20 +17,41 @@
 
     <main>
 
-        <!-- Adicionar elemento para criação das notas -->
+        <!-- TO DO-->
         <div id="to-do-container" class="list-container" style="background: linear-gradient(to top, rgb(193, 191, 255), rgba(147, 125, 237, 0.3))">
             <p class="list-title">To do</p>
-            <div class="container-nota">
-                <button id="add-item-btn" class="add-icon">add svg icon</button>
-                <p class="nota-title">Adicionar Nota</p>
-            </div>
+            <button type="button" class="add-container" data-pai="to-do-container">
+            <i class="fa-regular fa-plus add-circle-icon"></i>
+            <span>Adicionar nota</span>
+            </button> 
+            <div class="notas-lista"></div>
+        <!--Div separada pra n misturar as notas com o botão e título -->
+        <!--O JS sabe onde encaixar cada nota nova sem mexer no botão ou título da coluna-->
+        
+
         </div>
+
+        <!-- DOING-->
         <div id="doing-container" class="list-container" style="background: linear-gradient(to top, rgb(224, 166, 79), rgba(224, 166, 79, 0.3))">
             <p class="list-title">Doing</p>
+            <button type="button" class="add-container" data-pai="doing-container">
+             <i class="fa-regular fa-plus add-circle-icon"></i>
+             <span>Adicionar nota</span>
+            </button>
+             <div class="notas-lista"></div>
         </div>
+        
+        <!-- DONE -->
         <div id="done-container" class="list-container" style="background: linear-gradient(to top, rgb(111, 231, 195), rgba(111, 231, 195, 0.3))">
             <p class="list-title">Done</p>
+                <button type="button" class="add-container" data-pai="done-container">
+                 <i class="fa-regular fa-plus add-circle-icon"></i>
+                <span>Adicionar nota</span>
+                </button>
+                <div class="notas-lista"></div>
         </div>
+
+
     </main>
     
      <img src="OAT (1).svg" alt="Logo" class="logo-inferior">
