@@ -6,6 +6,11 @@
     font-family: "Outfit",sans-serif;
 }
 
+:root{
+    --bg-color: rgb(223, 219, 219);
+    --brand-red: rgb(168, 34, 34);
+}
+
 body {
     min-height: 100vh;
     width: 100%;
