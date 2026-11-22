@@ -1,0 +1,67 @@
+/*telas médias */
+/*Mudarei o disaign dps*/ 
+
+@media (max-width: 1024px) {
+    main {
+    padding: 0 16px;
+    gap: 18px;
+}
+
+    .list-container {
+    padding: 20px 18px;
+    border-radius: 30px;
+    }
+
+    .add-container {
+    padding: 10px 14px;
+    gap: 8px;
+    font-size: 0.95rem;
+    }
+}
+
+/* Celular */
+
+@media (max-width: 768px) {
+    header {
+     height: 96px;
+    padding: 16px 12px 8px;
+    }
+
+    .logo {
+     width: 230px;
+    }
+
+    main {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 16px;
+    margin-top: 12px;
+    }
+
+    .list-container {
+    min-height: auto;
+    padding: 20px;
+    border-radius: 28px;
+    gap: 16px;
+    }
+
+    .list-title {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+    }
+
+    .container-nota {
+    min-height: 170px;
+    padding: 16px;
+    border-radius: 24px;
+    }
+
+    .nota-title {
+        font-size: 1.2rem;
+    }
+
+    .logo-inferior {
+        width: 160px;
+        margin: 24px auto 16px auto;
+    }
+}
