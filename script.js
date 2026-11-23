@@ -18,7 +18,7 @@ function inserirNota(status) {
         id:crypto.randomUUID(), //Gera uma string aleatória
         titulo:"Nova Nota",
         conteudo:"",
-        cor:"", //para o caso de adicionar um seletor de cor nas notas
+        cor:"#ffffff", //para o caso de adicionar um seletor de cor nas notas
         status:status
     };
     notas.push(nota);
@@ -38,14 +38,17 @@ function renderNota() {     //Apenas renderiza novas notas com base nos objetos 
         let novaNota = document.createElement("div");
         novaNota.className = "container-nota";
         novaNota.id = nota.id;
+        novaNota.style.backgroundColor = nota.cor;
+        //novaNota.onclick = () => abrirModal(nota.id);
 
         novaNota.innerHTML = `
-            <input class="nota-title" type="text" maxlength="30" onblur="alterarTitulo(this)" value="${nota.titulo}">
+            <h3 class="nota-title">${nota.titulo}</h3>
             <i class="fa-solid fa-pen edit-nota-icon"></i>
             <i class="fa-solid fa-trash trash-nota-icon" onclick="removerNota(this)"></i>
-            <textarea name="conteudo-resumo" disabled class="texto-nota-resumo">${nota.conteudo}</textarea>
+            <p class="display-preview" onclick="abrirModal('${nota.id}')">${nota.conteudo || "Clique para editar..."}</p>
         `;
         //<p class="nota-title" max-length="30" contenteditable="true" onblur="alterarTitulo(this)">${nota.titulo}</p>
+        //<textarea name="conteudo-resumo" disabled class="texto-nota-resumo">${nota.conteudo}</textarea>
         destinoNota.appendChild(novaNota);
 
         // Rolagem das listas
@@ -79,4 +82,10 @@ function alterarTitulo(text){
     }
 
     console.log(notas); //Essa linha deve ser retirada posteriormente----------
+};
+
+function abrirModal(idModal) {
+    console.log("Modal clicado: " + idModal);
+    //Criar a estrutura para abrir o modal
+    
 };
