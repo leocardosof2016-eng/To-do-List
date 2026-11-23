@@ -131,20 +131,6 @@ color:black;
         align-self: center;
     }
 
-.texto-nota-resumo {
-        grid-column: 1 / -1; /* Faz a textarea esticar da primeira até a última coluna */
-        grid-row: 2; /* Fica na linha de baixo */
-        width: 100%;
-        height: 100%;
-        min-height: 120px;
-        border: none; 
-        outline: none; 
-        background: transparent;
-        resize: none;
-        font-size: 0.95rem;
-        
-    }
-
 .add-container {
     width: 100%;
     height: 62px;
@@ -182,4 +168,34 @@ color:black;
 .notas-lista::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.65);
     border-radius: 999px;
+}
+
+/*-------- Estilização do Modal das Notas Clicadas -------*/
+/*Acho interessante mover toda essa parte para um arquivo novo*/
+.hidden {
+    display: none;
+}
+
+.texto-nota-resumo {
+    grid-column: 1 / -1; /* Faz a textarea esticar da primeira até a última coluna */
+    grid-row: 2; /* Fica na linha de baixo */
+    width: 100%;
+    height: 100%;
+    min-height: 120px;
+    border: none; 
+    outline: none; 
+    background: transparent;
+    resize: none;
+    font-size: 0.95rem;
+        
+}
+
+.modal-title {
+    grid-column: 1; 
+    grid-row: 1;
+    margin: 0;
+    text-align: left;
+    font-size: 1.35rem; 
+    font-weight: 700;
+    align-self: center;
 }
