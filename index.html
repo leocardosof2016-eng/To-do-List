@@ -51,12 +51,27 @@
                 <div class="notas-lista"></div>
         </div>
 
-
     </main>
     
-     <img src="images/logo-inferior.svg" alt="Logo" class="logo-inferior">
+    <footer>
+        <img src="images/logo-inferior.svg" alt="Logo" class="logo-inferior">
+    </footer>
 
-    <footer></footer>
+    <div id="modal-nota" class="hidden">
+        <button id="btn-fechar-modal">&#x2715 Fechar Nota</button>
+        <input type="text" id="modal-title" maxlength="30" onblur="alterarTitulo(this)">
+        <!--alterarTitulo(this) deve ser refeito para mudar o título do modal-->
+        <textarea id="modal-conteudo" class="texto-nota-resumo" placeholder="Escreva sua nota..."></textarea>
+        <select name="status" id="modal-status">
+            <option value="to-do-container">Não Iniciado</option>
+            <option value="doing-container">Fazendo</option>
+            <option value="done-container">Pronto</option>
+        </select>
+        <div id="seletor-cores"></div>
+        <button id="btn-salvar-modal">&#10003 Salvar Nota</button>
+        <!--Uma alternativa ao botão de salvar é colocar uma função onchange em tudo que pode ser alterado rapidamente(conteudo, por exemplo)-->
+    </div>
+
 
     <script src="script.js"></script>
 </body>
