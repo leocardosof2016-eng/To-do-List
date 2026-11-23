@@ -31,7 +31,8 @@ function renderNota() {     //Apenas renderiza novas notas com base nos objetos 
 
     notas.forEach(nota => {
 
-        const containerPai = document.getElementById(nota.status);  //Conteiner que a nota será inserida
+        const containerPai = document.getElementById(nota.status);  //Conteiner que possui o espaço reservado para as notas
+        const destinoNota = containerPai.querySelector(".notas-lista");
 
         //Criação do container da nota
         let novaNota = document.createElement("div");
@@ -45,9 +46,13 @@ function renderNota() {     //Apenas renderiza novas notas com base nos objetos 
             <textarea name="conteudo-resumo" disabled class="texto-nota-resumo">${nota.conteudo}</textarea>
         `;
         //<p class="nota-title" max-length="30" contenteditable="true" onblur="alterarTitulo(this)">${nota.titulo}</p>
+        destinoNota.appendChild(novaNota);
 
-        //Inserção do conteiner da nota no conteiner das notas; e do conteúdo da nota no conteiner da nota
-        containerPai.appendChild(novaNota);
+        // Rolagem das listas
+        destinoNota.scrollTo({
+            top: destinoNota.scrollHeight,
+            behavior: "smooth"
+        });
     });  
 };
 
