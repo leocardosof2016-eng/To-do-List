@@ -1,5 +1,5 @@
 /*telas médias */
-/*Mudarei o disaign dps*/ 
+
 
 @media (max-width: 1024px) {
     main {
@@ -64,4 +64,70 @@
         width: 160px;
         margin: 24px auto 16px auto;
     }
+}
+    /* Celular */
+@media (max-width: 768px) {
+    #modal-overlay {
+        padding: 16px;
+        overflow: hidden;
+    }
+
+    #modal-nota {
+        width: 100%;
+        max-width: 700px;
+        min-height: 460px;
+        max-height: 86dvh;
+        border-radius: 32px;
+        padding: 18px 20px 18px;
+        gap: 6px;
+        overflow: hidden;
+    }
+
+    #btn-fechar-modal {
+        align-self: flex-end;
+        padding: 0;
+        margin: 0;
+        font-size: 0.75rem;
+    }
+    #modal-title {
+        font-size: 1.15rem;
+    }
+
+    .texto-nota-resumo {
+        flex: 1 1 auto;
+        min-height: 270px;
+        min-width: 270;
+        font-size: 0.72rem;
+        line-height: 1.38;
+        overflow: hidden;
+    }
+
+  .modal-rodape {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding-top: 12px;
+    flex-shrink: 0;
+}
+
+#modal-status,
+#btn-salvar-modal {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+    padding: 0 8px;
+    font-size: 0.10rem;
+    line-height: 1;
+    border-radius: 12px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+#btn-salvar-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 }
