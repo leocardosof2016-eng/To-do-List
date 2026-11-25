@@ -56,7 +56,7 @@
     color: #111111;
 }
 
-.modal-rodape {
+#modal-rodape {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -83,4 +83,86 @@
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
+}
+
+/*--------- Configurações do Seletor de Cores ---------*/
+/* Define o ponto de referência para o menu flutuante */
+.seletor-cores {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-abrir-cores {
+    font-size: 1.25rem;
+    color: #333333;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.btn-abrir-cores:hover {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Caixa flutuante posicionada exatamente acima do ícone */
+.menu-cores {
+    position: absolute;
+    bottom: calc(100% + 10px); /* Empurra para baixo do ícone com 10px de folga */
+    left: 50%;
+    transform: translateX(-50%); /* Centraliza horizontalmente em relação ao ícone */
+    
+    display: none; /* Oculto até o usuário clicar */
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background-color: #2b2b2b;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+    z-index: 1100; /* Fica acima do #modal-overlay (z-index: 1000) */
+}
+
+/* Classe ativada pelo JS ao clicar na paleta */
+.menu-cores.ativo {
+    display: flex;
+}
+
+/* Círculos de cor */
+.opcao-cor {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: transform 0.15s;
+}
+
+.opcao-cor:hover {
+    transform: scale(1.12);
+}
+
+/* Borda roxa e ícone de check (✓) na cor selecionada, igual à referência */
+.opcao-cor.selecionada {
+    border: 2.5px solid #a142f4;
+}
+
+.opcao-cor.selecionada::after {
+    content: "✓";
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 15px;
+    height: 15px;
+    background-color: #a142f4;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

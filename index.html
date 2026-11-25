@@ -62,14 +62,25 @@
         <div id="modal-nota">
             <button type="button" id="btn-fechar-modal">✕ Fechar Nota</button> <!--icone-->
             <input type="text" id="modal-title" maxlength="30" value="" onblur="alterarTitulo(this)">
-            <textarea id="modal-conteudo" class="texto-nota-resumo" placeholder="Escreva sua nota...">Conteúdo</textarea>
-            <div class="modal-rodape"><!--parte onde fica status e salvar-->
-                <select name="status" id="modal-status">
-                <option value="to-do-container">Não Iniciado</option>
-                <option value="doing-container">Fazendo</option>
-                <option value="done-container">Pronto</option>
+            <textarea id="modal-conteudo" class="texto-nota-resumo" onblur="alterarConteudo(this)" placeholder="Escreva sua nota..."></textarea>
+            <div id="modal-rodape"><!--parte onde fica status e salvar-->
+                <select name="status" id="modal-status" onchange="alterarStatus(this)">
+                    <option value="to-do-container">Não Iniciado</option>
+                    <option value="doing-container">Fazendo</option>
+                    <option value="done-container">Pronto</option>
                 </select>
-                <div id="seletor-cores"></div>
+                <div class="seletor-cores">
+                    <i class="fa-solid fa-palette btn-abrir-cores" onclick="toggleMenuCores(event, this)"></i>
+
+                    <div class="menu-cores">
+                        <button type="button" class="opcao-cor" data-cor="#ffffff" style="background-color: #ffffff;" title="Padrão" onclick="selecionarCor(event, this)"></button>
+                        <button type="button" class="opcao-cor" data-cor="#fff475" style="background-color: #fff475;" title="Amarelo" onclick="selecionarCor(event, this)"></button>
+                        <button type="button" class="opcao-cor" data-cor="#cbf0f8" style="background-color: #cbf0f8;" title="Azul" onclick="selecionarCor(event, this)"></button>
+                        <button type="button" class="opcao-cor" data-cor="#fdcfe8" style="background-color: #fdcfe8;" title="Rosa" onclick="selecionarCor(event, this)"></button>
+                        <button type="button" class="opcao-cor" data-cor="#ccff90" style="background-color: #ccff90;" title="Verde" onclick="selecionarCor(event, this)"></button>
+                        <button type="button" class="opcao-cor" data-cor="#e6c9a8" style="background-color: #e6c9a8;" title="Areia" onclick="selecionarCor(event, this)"></button>
+                    </div>
+                </div>
                 <button type="button" id="btn-salvar-modal">✓ Salvar Nota</button>
             </div>
         </div>
