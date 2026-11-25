@@ -17,9 +17,9 @@ function inserirNota(status) {
     const nota = {
         id:crypto.randomUUID(), //Gera uma string aleatória
         titulo:"Nova Nota",
-        conteudo:"",
-        cor:"#ffffff", //para o caso de adicionar um seletor de cor nas notas
-        status:status
+        cor:"#ffffff",
+        status:status,
+        conteudo:""
     };
     notas.push(nota);
 
@@ -39,13 +39,32 @@ function renderNota() {     //Apenas renderiza novas notas com base nos objetos 
         novaNota.className = "container-nota";
         novaNota.id = nota.id;
         novaNota.style.backgroundColor = nota.cor;
-        //novaNota.onclick = () => abrirModal(nota.id);
+        novaNota.setAttribute("data-id", nota.id)
 
         novaNota.innerHTML = `
-            <h3 class="nota-title">${nota.titulo}</h3>
-            <i class="fa-solid fa-pen edit-nota-icon"></i>
-            <i class="fa-solid fa-trash trash-nota-icon" onclick="removerNota(this)"></i>
+            <h3 class="nota-title" onclick="abrirModal('${nota.id}')">${nota.titulo}</h3>
+
+            <select class="card-status" onchange="alterarStatus(this)">
+                <option value="to-do-container" ${nota.status === "to-do-container" ? "selected" : ""}>Não Iniciado</option>
+                <option value="doing-container" ${nota.status === "doing-container" ? "selected" : ""}>Fazendo</option>
+                <option value="done-container" ${nota.status === "done-container" ? "selected" : ""}>Pronto</option>
+            </select>
+
             <p class="display-preview" onclick="abrirModal('${nota.id}')">${nota.conteudo || "Clique para editar..."}</p>
+
+            <div class="seletor-cores">
+                <i class="fa-solid fa-palette btn-abrir-cores" onclick="toggleMenuCores(event, this)"></i>
+                <div class="menu-cores">
+                    <button type="button" class="opcao-cor ${nota.cor === '#ffffff' ? 'selecionada' : ''}" data-cor="#ffffff" style="background-color: #ffffff;" title="Padrão" onclick="selecionarCor(event, this)"></button>
+                    <button type="button" class="opcao-cor ${nota.cor === '#fff475' ? 'selecionada' : ''}" data-cor="#fff475" style="background-color: #fff475;" title="Amarelo" onclick="selecionarCor(event, this)"></button>
+                    <button type="button" class="opcao-cor ${nota.cor === '#cbf0f8' ? 'selecionada' : ''}" data-cor="#cbf0f8" style="background-color: #cbf0f8;" title="Azul" onclick="selecionarCor(event, this)"></button>
+                    <button type="button" class="opcao-cor ${nota.cor === '#fdcfe8' ? 'selecionada' : ''}" data-cor="#fdcfe8" style="background-color: #fdcfe8;" title="Rosa" onclick="selecionarCor(event, this)"></button>
+                    <button type="button" class="opcao-cor ${nota.cor === '#ccff90' ? 'selecionada' : ''}" data-cor="#ccff90" style="background-color: #ccff90;" title="Verde" onclick="selecionarCor(event, this)"></button>
+                    <button type="button" class="opcao-cor ${nota.cor === '#e6c9a8' ? 'selecionada' : ''}" data-cor="#e6c9a8" style="background-color: #e6c9a8;" title="Areia" onclick="selecionarCor(event, this)"></button>
+                </div>
+            </div>
+
+            <i class="fa-solid fa-trash trash-nota-icon" onclick="removerNota(this)"></i>
         `;
         //<p class="nota-title" max-length="30" contenteditable="true" onblur="alterarTitulo(this)">${nota.titulo}</p>
         //<textarea name="conteudo-resumo" disabled class="texto-nota-resumo">${nota.conteudo}</textarea>
@@ -61,7 +80,7 @@ function renderNota() {     //Apenas renderiza novas notas com base nos objetos 
 
 
 function removerNota(botao) {
-    const idNotaSelecionada = botao.closest('div').id;
+    const idNotaSelecionada = botao.closest('.container-nota').id;
     const indexNotaSelecionada = notas.findIndex((nota) => nota.id === idNotaSelecionada);
 
     notas = notas.filter(nota => nota != notas[indexNotaSelecionada]);  //Retira aquela nota do array
@@ -70,22 +89,128 @@ function removerNota(botao) {
     console.log(notas); //Essa linha deve ser retirada posteriormente----------
 };
 
-function alterarTitulo(text){
-    const notaAtual = notas.find(nota => nota.id === text.closest('div').id);
-    const novoTitulo = text.value.trim();
+
+//----------------- Seção do Modal -----------------//
+function abrirModal(idNota) {
+    document.getElementById("modal-overlay").style.display = "flex";
+    renderModal(idNota);
+};
+
+//Fechar modal
+document.getElementById("btn-fechar-modal").addEventListener("click", () => {
+    document.getElementById("modal-overlay").style.display = "none";
+    renderNota();
+});
+document.getElementById("btn-salvar-modal").addEventListener("click", () => {
+    document.getElementById("modal-overlay").style.display = "none";
+    renderNota();
+});
+
+//Renderizar os elementos do modal
+function renderModal(idNota) {
+    const notaAtual = notas.find(nota => nota.id === idNota);
+
+    const modalNota = document.getElementById("modal-nota");
+    modalNota.setAttribute("data-id", idNota);
+    modalNota.style.backgroundColor = notaAtual.cor;
+
+    const modalRodape = document.getElementById("modal-rodape");
+    modalRodape.setAttribute("data-id", idNota);
+
+    document.getElementById("modal-title").value = String(notaAtual.titulo);
+    document.getElementById("modal-conteudo").value = String(notaAtual.conteudo);
+    document.getElementById("modal-status").value = notaAtual.status;   
+
+    const menuModal = modalNota.querySelector(".menu-cores");
+    menuModal.classList.remove("ativo");
+    atualizarCheckCor(menuModal, notaAtual.cor);
+};
+
+function alterarTitulo(inputElement){
+    const notaAtual = notas.find((nota) => nota.id === inputElement.closest('div').getAttribute("data-id"));
+    const novoTitulo = inputElement.value.trim();
 
     if(novoTitulo != ""){ 
         notaAtual.titulo = novoTitulo;
     }else{
         notaAtual.titulo = "Sem Título";
-        text.value = "Sem Título";
+        inputElement.value = "Sem Título";
     }
 
     console.log(notas); //Essa linha deve ser retirada posteriormente----------
 };
 
-function abrirModal(idModal) {
-    console.log("Modal clicado: " + idModal);
-    //Criar a estrutura para abrir o modal
-    
+function alterarConteudo(textareaElement) {
+    const notaAtual = notas.find((nota) => nota.id === textareaElement.closest('div').getAttribute("data-id"));
+    notaAtual.conteudo = textareaElement.value.trim();
+
+    console.log(notas); //Essa linha deve ser retirada posteriormente----------
 };
+
+function alterarStatus(selectElement) {
+    const notaAtualHTML = selectElement.closest('[data-id]');
+    const notaAtual = notas.find((nota) => nota.id === notaAtualHTML.getAttribute('data-id'))
+    
+    notaAtual.status = String(selectElement.value);
+
+    if(notaAtualHTML.classList.contains("container-nota")){
+        renderNota();
+    }
+
+    console.log(notaAtual)  //Essa linha deve ser retirada posteriormente----------
+};
+
+//----------------- Seção do Seletor de Cores -----------------//
+
+function toggleMenuCores(event, icone) {
+    event.stopPropagation();
+    const menuAtual = icone.closest(".seletor-cores").querySelector(".menu-cores");
+
+    // Fecha outros menus de cor que estejam abertos em outros cards
+    document.querySelectorAll(".menu-cores.ativo").forEach(menu => {
+        if (menu !== menuAtual) {
+            menu.classList.remove("ativo");
+        }
+    });
+
+    menuAtual.classList.toggle("ativo");
+}
+
+function selecionarCor(event, botaoCor) {
+    event.stopPropagation();
+    const novaCor = botaoCor.getAttribute("data-cor");
+    const containerComId = botaoCor.closest("[data-id]");
+    const idNota = containerComId.getAttribute("data-id");
+
+    const notaAtual = notas.find(nota => nota.id === idNota);
+    notaAtual.cor = novaCor;
+
+    // Pinta o fundo do elemento ativo (seja o modal ou o card da tela inicial)
+    if (containerComId.id === "modal-rodape") {
+        document.getElementById("modal-nota").style.backgroundColor = novaCor;
+    } else {
+        containerComId.style.backgroundColor = novaCor;
+    }
+
+    const menuAtual = botaoCor.closest(".menu-cores");
+    atualizarCheckCor(menuAtual, novaCor);
+}
+
+function atualizarCheckCor(menuElemento, corAtiva) {
+    menuElemento.querySelectorAll(".opcao-cor").forEach(botao => {
+        if (botao.getAttribute("data-cor") === corAtiva) {
+            botao.classList.add("selecionada");
+        } else {
+            botao.classList.remove("selecionada");
+        }
+    });
+}
+
+// Fecha qualquer menu de cores aberto ao clicar fora dele
+document.addEventListener("click", (event) => {
+    if (!event.target.closest(".seletor-cores")) {
+        document.querySelectorAll(".menu-cores.ativo").forEach(menu => {
+            menu.classList.remove("ativo");
+        });
+    }
+});
