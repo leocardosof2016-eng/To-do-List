@@ -57,19 +57,20 @@
     <footer>
         <img src="images/logo-inferior.svg" alt="Logo" class="logo-inferior">
     </footer>
+
     <div id="modal-overlay">
         <div id="modal-nota">
-         <button type="button" id="btn-fechar-modal">✕ Fechar Nota</button> <!--icone-->
-         <input type="text" id="modal-title" maxlength="30" value="Nota 1" onblur="alterarTitulo(this)">
-        <textarea id="modal-conteudo" class="texto-nota-resumo" placeholder="Escreva sua nota...">Conteúdo</textarea>
-         <div class="modal-rodape"><!--parte onde fica status e salvar-->
-            <select name="status" id="modal-status">
-            <option value="to-do-container">Não Iniciado</option>
-            <option value="doing-container">Fazendo</option>
-            <option value="done-container">Pronto</option>
-            </select>
-        <div id="seletor-cores"></div>
-         <button type="button" id="btn-salvar-modal">✓ Salvar Nota</button>
+            <button type="button" id="btn-fechar-modal">✕ Fechar Nota</button> <!--icone-->
+            <input type="text" id="modal-title" maxlength="30" value="" onblur="alterarTitulo(this)">
+            <textarea id="modal-conteudo" class="texto-nota-resumo" placeholder="Escreva sua nota...">Conteúdo</textarea>
+            <div class="modal-rodape"><!--parte onde fica status e salvar-->
+                <select name="status" id="modal-status">
+                <option value="to-do-container">Não Iniciado</option>
+                <option value="doing-container">Fazendo</option>
+                <option value="done-container">Pronto</option>
+                </select>
+                <div id="seletor-cores"></div>
+                <button type="button" id="btn-salvar-modal">✓ Salvar Nota</button>
             </div>
         </div>
     </div>

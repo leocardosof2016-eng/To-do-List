@@ -1,13 +1,10 @@
 /* Estilização do Modal das Notas Clicadas */
-.hidden {
-    display: none;
-}
-
 #modal-overlay { /*uma camada lilás por cima da página*/
     position: fixed;
     inset: 0; /*Cobrir tela inteira com o lilás*/
     background-color: rgba(126, 115, 203, 0.78);
-    display: flex; /*manter a nota centralizada*/
+    display: none; /*manter a nota centralizada*/
+    /*nota aparecendo = display: flex*/
     align-items: center;
     justify-content: center;
     padding: 24px;
