@@ -1,4 +1,4 @@
-/*telas médias */
+/*telas médias (767-1024)*/
 
 
 @media (max-width: 1024px) {
@@ -19,53 +19,35 @@
     }
 }
 
-/* Celular */
-
-@media (max-width: 768px) {
-    header {
-     height: 96px;
-    padding: 16px 12px 8px;
-    }
-
-    .logo {
-     width: 230px;
-    }
-
+/* Telas médias / Tablets (601px a 900px) */
+@media (max-width: 900px) {
     main {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 0 16px;
-    margin-top: 12px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        padding: 0 16px;
     }
 
     .list-container {
-    min-height: auto;
-    padding: 20px;
-    border-radius: 28px;
-    gap: 16px;
+        min-height: 460px;
+        padding: 20px;
+        border-radius: 28px;
     }
 
-    .list-title {
-    font-size: 1.5rem;
-    margin-bottom: 4px;
+    #done-container {
+        grid-column: 1 / -1;
     }
 
-    .container-nota {
-    min-height: 170px;
-    padding: 16px;
-    border-radius: 24px;
-    }
-
-    .nota-title {
-        font-size: 1.2rem;
-    }
-
-    .logo-inferior {
-        width: 160px;
-        margin: 24px auto 16px auto;
+    #done-container .notas-lista {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        row-gap: 16px;
+        column-gap: 64px;
+        align-content: start;
     }
 }
-    /* Celular */
+
+
+/* Configurações do modal em telas menores que 768px */
 @media (max-width: 768px) {
     #modal-overlay {
         padding: 16px;
@@ -124,5 +106,55 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+}
+
+
+/* Celular (até 600px) */
+@media (max-width: 600px) {
+    header {
+        height: 96px;
+        padding: 16px 12px 8px;
+    }
+
+    .logo {
+        width: 230px;
+    }
+
+    main {
+        grid-template-columns: 1fr;
+        margin-top: 12px;
+    }
+
+    .list-container {
+        max-width: 440px; /* Evita estiramento entre 440px e 600px */
+        margin: 0 auto;
+        min-height: auto;
+        gap: 16px;
+    }
+
+    .list-title {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+    }
+
+    .container-nota {
+        min-height: 170px;
+        padding: 16px;
+        border-radius: 24px;
+    }
+
+    .nota-title {
+        font-size: 1.2rem;
+    }
+
+    .logo-inferior {
+        width: 160px;
+        margin: 24px auto 16px auto;
+    }
+
+    #done-container .notas-lista {
+        display: flex;
+        flex-direction: column;
     }
 }

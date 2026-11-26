@@ -112,7 +112,7 @@
     position: absolute;
     bottom: calc(100% + 10px); /* Empurra para baixo do ícone com 10px de folga */
     left: 50%;
-    transform: translateX(-50%); /* Centraliza horizontalmente em relação ao ícone */
+    transform: translateX(-80%); /* Centraliza horizontalmente em relação ao ícone */
     
     display: none; /* Oculto até o usuário clicar */
     align-items: center;
