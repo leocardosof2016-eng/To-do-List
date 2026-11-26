@@ -64,31 +64,24 @@
         gap: 6px;
     }
 
-    #btn-fechar-modal {
-        align-self: flex-end;
-        padding: 0;
-        margin: 0;
-        font-size: 0.75rem;
-    }
     #modal-title {
         font-size: 1.35rem;
     }
 
     .texto-nota-resumo {
         flex: 1 1 auto;
-        min-width: 270;
         font-size: 0.95rem;
         line-height: 1.38;
     }
 
-    #modal-rodape {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    padding-top: 12px;
-    flex-shrink: 0;
+#modal-rodape {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        width: 100%;
+        padding-top: 12px;
+        flex-shrink: 0;
     }
 
     #modal-status,
@@ -96,16 +89,8 @@
         height: 40px;
         padding: 0 12px;
         font-size: 0.85rem;
-        line-height: 1;
         border-radius: 12px;
-        box-sizing: border-box;
         white-space: nowrap;
-    }
-
-    #btn-salvar-modal {
-        display: flex;
-        justify-content: center;
-        align-items: center;
     }
 }
 
@@ -156,5 +141,39 @@
     #done-container .notas-lista {
         display: flex;
         flex-direction: column;
+    }
+}
+
+/* Telas muito pequenas (até 470px) */
+@media (max-width: 470px) {
+    #modal-overlay {
+        padding: 12px;
+    }
+
+    #modal-nota {
+        padding: 18px 16px;
+    }
+
+    #modal-rodape {
+        display: grid;
+        grid-template-columns: 1fr auto; /* Linha 1: select ocupa o espaço livre, paleta fica ao lado */
+        align-items: center;
+        gap: 10px;
+    }
+
+    #modal-status {
+        width: 100%;
+    }
+
+    #btn-salvar-modal {
+        grid-column: 1 / -1; /* Linha 2: botão de salvar desce e ocupa 100% da largura */
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .menu-cores {
+        transform: translateX(-90%);
     }
 }
