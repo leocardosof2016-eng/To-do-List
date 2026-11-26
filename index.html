@@ -62,6 +62,7 @@
         <div id="modal-nota">
             <input type="text" id="modal-title" maxlength="30" value="" onblur="alterarTitulo(this)">
             <textarea id="modal-conteudo" class="texto-nota-resumo" onblur="alterarConteudo(this)" placeholder="Escreva sua nota..."></textarea>
+            <p id="modal-timestamp"></p>
             <div id="modal-rodape"><!--parte onde fica status e salvar-->
                 <select name="status" id="modal-status" onchange="alterarStatus(this)">
                     <option value="to-do-container">Não Iniciado</option>

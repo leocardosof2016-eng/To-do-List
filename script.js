@@ -11,7 +11,6 @@ btnAddNota.forEach(botao => {
         renderNota();
         salvarStorage();
     });
-    
 });
 
 function inserirNota(status) {
@@ -20,6 +19,7 @@ function inserirNota(status) {
         titulo:"Nova Nota",
         cor:"#ffffff",
         status:status,
+        ultimaAlteracao: addTimestampAtual(),
         conteudo:""
     };
     notas.push(nota);
@@ -73,6 +73,22 @@ function renderNota() {     //Apenas renderiza novas notas com base nos objetos 
     });  
 };
 
+function addTimestampAtual(){
+    return new Intl.DateTimeFormat("pt-BR", {
+        day: "numeric",
+        month: "short",
+        year: "numeric"
+    }).format(new Date());
+};
+
+function modificarDataAlteracao(nota){
+    const modalNota = document.getElementById("modal-nota");
+    nota.ultimaAlteracao = addTimestampAtual()
+
+    if(modalNota.getAttribute("data-id") === nota.id){
+        document.getElementById("modal-timestamp").textContent = `Modificado em: ${nota.ultimaAlteracao}`
+    };
+};
 
 function removerNota(botao) {
     const idNotaSelecionada = botao.closest('.container-nota').id;
@@ -120,7 +136,8 @@ function renderModal(idNota) {
 
     document.getElementById("modal-title").value = String(notaAtual.titulo);
     document.getElementById("modal-conteudo").value = String(notaAtual.conteudo);
-    document.getElementById("modal-status").value = notaAtual.status;   
+    document.getElementById("modal-status").value = notaAtual.status;  
+    document.getElementById("modal-timestamp").textContent = `Modificado em: ${notaAtual.ultimaAlteracao}`
 
     const menuModal = modalNota.querySelector(".menu-cores");
     menuModal.classList.remove("ativo");
@@ -131,23 +148,37 @@ function alterarTitulo(inputElement){
     const notaAtual = notas.find((nota) => nota.id === inputElement.closest('div').getAttribute("data-id"));
     const novoTitulo = inputElement.value.trim();
 
-    if(novoTitulo != ""){ 
-        notaAtual.titulo = novoTitulo;
-    }else{
+    if(novoTitulo === ""){ 
         notaAtual.titulo = "Sem Título";
         inputElement.value = "Sem Título";
+
+        modificarDataAlteracao(notaAtual);
+        salvarStorage();
+
+        console.log(notas); //Essa linha deve ser retirada posteriormente----------
+
+    }else if(notaAtual.titulo != novoTitulo){
+        notaAtual.titulo = novoTitulo;
+
+        modificarDataAlteracao(notaAtual);
+        salvarStorage()
+
+        console.log(notas); //Essa linha deve ser retirada posteriormente----------
     }
 
-    salvarStorage()
-    console.log(notas); //Essa linha deve ser retirada posteriormente----------
 };
 
 function alterarConteudo(textareaElement) {
     const notaAtual = notas.find((nota) => nota.id === textareaElement.closest('div').getAttribute("data-id"));
-    notaAtual.conteudo = textareaElement.value.trim();
 
-    salvarStorage()
-    console.log(notas); //Essa linha deve ser retirada posteriormente----------
+    if(notaAtual.conteudo != textareaElement.value.trim()){
+        notaAtual.conteudo = textareaElement.value.trim();
+        
+        modificarDataAlteracao(notaAtual);
+        salvarStorage()
+
+        console.log(notas); //Essa linha deve ser retirada posteriormente----------
+    };   
 };
 
 function alterarStatus(selectElement) {
@@ -160,6 +191,7 @@ function alterarStatus(selectElement) {
         renderNota();
     }
 
+    modificarDataAlteracao(notaAtual);
     salvarStorage()
     console.log(notaAtual)  //Essa linha deve ser retirada posteriormente----------
 };
@@ -200,6 +232,7 @@ function selecionarCor(event, botaoCor) {
     const menuAtual = botaoCor.closest(".menu-cores");
     atualizarCheckCor(menuAtual, novaCor);
 
+    modificarDataAlteracao(notaAtual);
     salvarStorage()
 }
 
