@@ -48,7 +48,7 @@ main {
     position:relative; /*tirar*/
     padding: 20px 22px 18px;
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: auto auto auto;
     grid-template-rows: auto 1fr auto;
     gap: 10px;
     border-radius: 28px;
@@ -59,9 +59,9 @@ main {
 }
 
 .card-status {
-    grid-column: 2;
-    grid-row: 1;
-    justify-self: end;
+    grid-column: 1;
+    grid-row: 3;
+    justify-self: start;
     align-self: center;
     border: 1.5px solid rgba(0, 0, 0, 0.25);
     border-radius: 12px;
@@ -75,7 +75,8 @@ main {
 }
 
 .trash-nota-icon{
-    grid-column: 2;grid-row: 3;
+    grid-column: 3;
+    grid-row: 3;
     justify-self: end;
     align-self: center;
     cursor: pointer;
@@ -83,7 +84,7 @@ main {
 }
 
 .container-nota .seletor-cores {
-    grid-column: 1;
+    grid-column: 2;
     grid-row: 3;
     justify-self: start;
     align-self: center;
@@ -91,8 +92,6 @@ main {
 
 /* Ajuste no menu flutuante dentro do card para abrir para cima e caber na largura da coluna */
 .container-nota .menu-cores {
-    left: 0;
-    transform: none;
     padding: 8px 10px;
     gap: 6px;
 }
@@ -144,26 +143,37 @@ color:black;
 
 
 .add-circle-icon {
+    position: relative;
     width: 24px;
     height: 24px;
-    border: 1.8px solid #6f6cf6;
+    border: 2px solid #6f6cf6;
     border-radius: 50%;
-    color: #6f6cf6;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
-    line-height: 0;
 }
 
-.add-circle-icon::before { /*centralizar + */
-    display: block;
-    line-height: 1;
-    transform: translateY(2.0px);}
+.add-circle-icon::before,
+.add-circle-icon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #6f6cf6;
+    border-radius: 2px;
+    transform: translate(-50%, -50%);
+}
+
+.add-circle-icon::before {
+    width: 10px;
+    height: 2px; /* Barra horizontal */
+}
+
+.add-circle-icon::after {
+    width: 2px;
+    height: 10px; /* Barra vertical */
+}
 
 .nota-title {
-        grid-column: 1; 
+        grid-column: 1 / -1;
         grid-row: 1;
         margin: 0;
         text-align: left;
@@ -174,18 +184,19 @@ color:black;
 
 .display-preview {
     grid-column: 1 / -1; /* Faz a textarea esticar da primeira até a última coluna */
-    grid-row: 2; /* Fica na linha de baixo */
+    grid-row: 2; /* Fica na linha do meio */
     width: 100%;
-    height: 100%;
     min-height: 80px;
     border: none; 
     outline: none; 
     background: transparent;
     font-size: 1rem;
+    line-height: 1.4;
+    overflow-wrap: break-word;
 
-    /*==========Estrutura não funcional ---> Necessita de conserto ==========*/
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
     line-clamp: 4;
     overflow: hidden;  
 }
@@ -218,7 +229,7 @@ color:black;
     flex-direction: column;
     gap: 16px;
     padding-right: 4px;
-    /*scrollbar-width: none ; /* ou thin */}
+}
 
 .notas-lista::-webkit-scrollbar-track {
     background: transparent;
@@ -227,5 +238,9 @@ color:black;
 .notas-lista::-webkit-scrollbar-thumb {
     background-color: rgba(255, 255, 255, 0.65);
     border-radius: 999px;
+}
+
+.notas-lista::-webkit-scrollbar {
+    width: 3px;
 }
 

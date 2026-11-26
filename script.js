@@ -44,14 +44,14 @@ function renderNota() {     //Apenas renderiza novas notas com base nos objetos 
 
         novaNota.innerHTML = `
             <h3 class="nota-title" onclick="abrirModal('${nota.id}')">${nota.titulo}</h3>
+            
+            <p class="display-preview" onclick="abrirModal('${nota.id}')">${nota.conteudo || "Clique para editar..."}</p>
 
             <select class="card-status" onchange="alterarStatus(this)">
                 <option value="to-do-container" ${nota.status === "to-do-container" ? "selected" : ""}>Não Iniciado</option>
                 <option value="doing-container" ${nota.status === "doing-container" ? "selected" : ""}>Fazendo</option>
                 <option value="done-container" ${nota.status === "done-container" ? "selected" : ""}>Pronto</option>
             </select>
-
-            <p class="display-preview" onclick="abrirModal('${nota.id}')">${nota.conteudo || "Clique para editar..."}</p>
 
             <div class="seletor-cores">
                 <i class="fa-solid fa-palette btn-abrir-cores" onclick="toggleMenuCores(event, this)"></i>
@@ -70,12 +70,6 @@ function renderNota() {     //Apenas renderiza novas notas com base nos objetos 
         //<p class="nota-title" max-length="30" contenteditable="true" onblur="alterarTitulo(this)">${nota.titulo}</p>
         //<textarea name="conteudo-resumo" disabled class="texto-nota-resumo">${nota.conteudo}</textarea>
         destinoNota.appendChild(novaNota);
-
-        // Rolagem das listas
-        destinoNota.scrollTo({
-            top: destinoNota.scrollHeight,
-            behavior: "smooth"
-        });
     });  
 };
 
