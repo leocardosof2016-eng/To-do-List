@@ -237,8 +237,10 @@ function salvarStorage() {
 
 function carregarStorage() {
     const dadosSalvos = localStorage.getItem("lista_Kanban");
-    notas = JSON.parse(dadosSalvos);
-    renderNota();
+    if(dadosSalvos) {
+        notas = JSON.parse(dadosSalvos);
+        renderNota();
+    }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
