@@ -39,7 +39,7 @@
     border: none;
     outline: none;
     background: transparent;
-    font-size: 2.1rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: #000000;
 }
@@ -51,7 +51,7 @@
     outline: none;
     background: transparent;
     resize: none;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     line-height: 1.45;
     color: #111111;
 }
