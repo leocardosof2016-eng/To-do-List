@@ -9,6 +9,7 @@ btnAddNota.forEach(botao => {
         const status = this.getAttribute("data-pai");
         inserirNota(status);
         renderNota();
+        salvarStorage();
     });
     
 });
@@ -85,6 +86,7 @@ function removerNota(botao) {
 
     notas = notas.filter(nota => nota != notas[indexNotaSelecionada]);  //Retira aquela nota do array
     renderNota();
+    salvarStorage();
 
     console.log(notas); //Essa linha deve ser retirada posteriormente----------
 };
@@ -142,6 +144,7 @@ function alterarTitulo(inputElement){
         inputElement.value = "Sem Título";
     }
 
+    salvarStorage()
     console.log(notas); //Essa linha deve ser retirada posteriormente----------
 };
 
@@ -149,6 +152,7 @@ function alterarConteudo(textareaElement) {
     const notaAtual = notas.find((nota) => nota.id === textareaElement.closest('div').getAttribute("data-id"));
     notaAtual.conteudo = textareaElement.value.trim();
 
+    salvarStorage()
     console.log(notas); //Essa linha deve ser retirada posteriormente----------
 };
 
@@ -162,6 +166,7 @@ function alterarStatus(selectElement) {
         renderNota();
     }
 
+    salvarStorage()
     console.log(notaAtual)  //Essa linha deve ser retirada posteriormente----------
 };
 
@@ -200,6 +205,8 @@ function selecionarCor(event, botaoCor) {
 
     const menuAtual = botaoCor.closest(".menu-cores");
     atualizarCheckCor(menuAtual, novaCor);
+
+    salvarStorage()
 }
 
 //Define qual ícone contém o elemento de selecionado
@@ -220,4 +227,20 @@ document.addEventListener("click", (event) => {
             menu.classList.remove("ativo");
         });
     }
+});
+
+//----------------- Seção do JSON/localStorage -----------------//
+//O salvamento no localStorage deverá ser chamado sempre que uma função de alteração for acionada. Ex: alterarTitulo -> salvar no localStorage
+function salvarStorage() {
+    localStorage.setItem("lista_Kanban", JSON.stringify(notas));
+};
+
+function carregarStorage() {
+    const dadosSalvos = localStorage.getItem("lista_Kanban");
+    notas = JSON.parse(dadosSalvos);
+    renderNota();
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    carregarStorage();
 });
