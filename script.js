@@ -9,6 +9,7 @@ btnAddNota.forEach(botao => {
         const status = this.getAttribute("data-pai");
         inserirNota(status);
         renderNota();
+        salvarStorage();
     });
     
 });
@@ -85,25 +86,31 @@ function removerNota(botao) {
 
     notas = notas.filter(nota => nota != notas[indexNotaSelecionada]);  //Retira aquela nota do array
     renderNota();
+    salvarStorage();
 
     console.log(notas); //Essa linha deve ser retirada posteriormente----------
 };
 
 
 //----------------- Seção do Modal -----------------//
+const modalOverlay = document.getElementById("modal-overlay");
+
 function abrirModal(idNota) {
-    document.getElementById("modal-overlay").style.display = "flex";
+    modalOverlay.style.display = "flex";
     renderModal(idNota);
 };
 
-//Fechar modal
-document.getElementById("btn-fechar-modal").addEventListener("click", () => {
-    document.getElementById("modal-overlay").style.display = "none";
+//Fecha e salva o modal ao clicar no botão de salvar
+document.getElementById("btn-salvar-modal").addEventListener("click", () => {
+    modalOverlay.style.display = "none";
     renderNota();
 });
-document.getElementById("btn-salvar-modal").addEventListener("click", () => {
-    document.getElementById("modal-overlay").style.display = "none";
-    renderNota();
+//Fecha e salva o modal ao clicar fora dele
+modalOverlay.addEventListener("click", (event) => {
+    if(event.target === modalOverlay){
+        modalOverlay.style.display = "none";
+        renderNota();
+    };
 });
 
 //Renderizar os elementos do modal
@@ -137,6 +144,7 @@ function alterarTitulo(inputElement){
         inputElement.value = "Sem Título";
     }
 
+    salvarStorage()
     console.log(notas); //Essa linha deve ser retirada posteriormente----------
 };
 
@@ -144,6 +152,7 @@ function alterarConteudo(textareaElement) {
     const notaAtual = notas.find((nota) => nota.id === textareaElement.closest('div').getAttribute("data-id"));
     notaAtual.conteudo = textareaElement.value.trim();
 
+    salvarStorage()
     console.log(notas); //Essa linha deve ser retirada posteriormente----------
 };
 
@@ -157,11 +166,12 @@ function alterarStatus(selectElement) {
         renderNota();
     }
 
+    salvarStorage()
     console.log(notaAtual)  //Essa linha deve ser retirada posteriormente----------
 };
 
 //----------------- Seção do Seletor de Cores -----------------//
-
+//Ativa o menu de cores ao clique
 function toggleMenuCores(event, icone) {
     event.stopPropagation();
     const menuAtual = icone.closest(".seletor-cores").querySelector(".menu-cores");
@@ -176,6 +186,7 @@ function toggleMenuCores(event, icone) {
     menuAtual.classList.toggle("ativo");
 }
 
+//Troco o valor de cor no array e no estilo
 function selecionarCor(event, botaoCor) {
     event.stopPropagation();
     const novaCor = botaoCor.getAttribute("data-cor");
@@ -194,8 +205,11 @@ function selecionarCor(event, botaoCor) {
 
     const menuAtual = botaoCor.closest(".menu-cores");
     atualizarCheckCor(menuAtual, novaCor);
+
+    salvarStorage()
 }
 
+//Define qual ícone contém o elemento de selecionado
 function atualizarCheckCor(menuElemento, corAtiva) {
     menuElemento.querySelectorAll(".opcao-cor").forEach(botao => {
         if (botao.getAttribute("data-cor") === corAtiva) {
@@ -213,4 +227,20 @@ document.addEventListener("click", (event) => {
             menu.classList.remove("ativo");
         });
     }
+});
+
+//----------------- Seção do JSON/localStorage -----------------//
+//O salvamento no localStorage deverá ser chamado sempre que uma função de alteração for acionada. Ex: alterarTitulo -> salvar no localStorage
+function salvarStorage() {
+    localStorage.setItem("lista_Kanban", JSON.stringify(notas));
+};
+
+function carregarStorage() {
+    const dadosSalvos = localStorage.getItem("lista_Kanban");
+    notas = JSON.parse(dadosSalvos);
+    renderNota();
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+    carregarStorage();
 });
